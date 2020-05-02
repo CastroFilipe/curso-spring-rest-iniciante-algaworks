@@ -20,26 +20,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.filipe.osworks.domain.model.Cliente;
 import com.filipe.osworks.domain.repository.ClienteRepository;
+import com.filipe.osworks.domain.service.ClienteCadastroService;
 
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
-
-//	Busca direta com EntityManager
-//	@PersistenceContext //Semelhante ao @Autowired
-//	EntityManager manager;
-	
-//	@GetMapping("/clientes")
-//	public List<Cliente> teste() {
-//		//return manager.createQuery("from Cliente", Cliente.class).getResultList();
-//	}
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
+	@Autowired
+	private ClienteCadastroService clienteCadastroService;
+	
 	@GetMapping
 	public List<Cliente> listar() {
-		return clienteRepository.findAll();
+		return clienteRepository.findAll();	
 	}
 	
 	@GetMapping("/{id}")
@@ -56,7 +51,7 @@ public class ClienteController {
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
-		return clienteRepository.save(cliente);
+		return clienteCadastroService.salvar(cliente);
 	}
 	
 	@PutMapping("/{id}")
@@ -66,7 +61,7 @@ public class ClienteController {
 		}
 		
 		cliente.setId(id);
-		clienteRepository.save(cliente);
+		clienteCadastroService.salvar(cliente);
 		
 		return ResponseEntity.noContent().build();
 	}
@@ -77,7 +72,7 @@ public class ClienteController {
 			return ResponseEntity.notFound().build();//not foun se o objeto se não existir na base de dados
 		}
 		
-		clienteRepository.deleteById(id);
+		clienteCadastroService.excluir(id);
 		return ResponseEntity.noContent().build();
 	}
 }

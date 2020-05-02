@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * Classe que representa uma mensagem padrão de erro. 
@@ -19,6 +21,7 @@ public class MessageError {
 	
 	private String titulo;
 	
+	@JsonInclude(Include.NON_EMPTY)
 	private List<Campo> campos;
 	
 	//classe interna que representará cada campo inválido.

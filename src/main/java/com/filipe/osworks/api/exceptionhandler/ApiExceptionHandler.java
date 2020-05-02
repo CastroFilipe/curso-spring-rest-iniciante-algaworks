@@ -14,8 +14,11 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.filipe.osworks.domain.exception.NegocioException;
 
 /**
  * A classe fará, de forma global, o tratamento de exceções lançadas nas classes do pacote controller
@@ -29,6 +32,20 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	//quando injetado, trará as informações de mensagens presentes no arquivo messages.properties
 	@Autowired
 	private MessageSource messageSource;
+	
+	//Executará o trecho de código quando a aplicação lançar a exceção especificada.
+	@ExceptionHandler(NegocioException.class)
+	public ResponseEntity<Object> handleNegocio(NegocioException ex, WebRequest request) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		
+		MessageError mensagemDeErro = new MessageError(
+				status.value(), 
+				LocalDateTime.now(), 
+				ex.getMessage(), 
+				null);
+		
+		return handleExceptionInternal(ex, mensagemDeErro, new HttpHeaders(), status, request);
+	}
 	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,

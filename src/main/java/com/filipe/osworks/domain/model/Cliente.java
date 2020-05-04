@@ -14,20 +14,23 @@ public class Cliente {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID_CLIENTE")
 	private Integer id;
 	
 	@NotBlank
 	@Size(max = 60)
+	@Column(name = "TX_NOME")
 	private String nome;
 	
 	@NotBlank
 	@Email
 	@Size(max = 255)
+	@Column(name = "TX_EMAIL")
 	private String email;
 	
 	@NotBlank
 	@Size(max = 20)
-	@Column(name = "fone")
+	@Column(name = "TX_FONE")
 	private String telefone;
 	
 	public Cliente() {

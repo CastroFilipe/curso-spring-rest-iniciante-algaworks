@@ -1,1 +1,1 @@
-alter table cliente rename telefone TO fone;
+alter table cliente rename tx_telefone TO tx_fone;

@@ -13,6 +13,13 @@ public class ClienteCadastroService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
+	public Cliente buscarPorId(Integer id) {
+		Cliente cliente = clienteRepository.findById(id)
+				.orElseThrow(() -> new NegocioException("Cliente não encontrado"));
+		
+		return cliente;
+	}
+	
 	public Cliente salvar(Cliente cliente) {
 		clienteRepository.findByEmail(cliente.getEmail())
 			.ifPresent((clienteExistente) -> {

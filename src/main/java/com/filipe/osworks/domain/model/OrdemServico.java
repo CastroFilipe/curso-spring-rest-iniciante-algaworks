@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -25,9 +27,11 @@ public class OrdemServico {
 	private Integer id;
 	
 	@Column(name = "TX_DESCRICAO")
+	@NotBlank
 	private String descricao;
-
+	
 	@Column(name = "NU_PRECO")
+	@NotNull
 	private BigDecimal preco;
 
 	/*
@@ -50,6 +54,7 @@ public class OrdemServico {
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_CLIENTE")
+	@NotNull
 	private Cliente cliente;
 
 	public Integer getId() {

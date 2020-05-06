@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
 public class OrdemServico {
 	
@@ -27,14 +30,22 @@ public class OrdemServico {
 	@Column(name = "NU_PRECO")
 	private BigDecimal preco;
 
+	/*
+	 * Propriedade que impedirá que dados não necessários sejam preenchidos e enviados do front.
+	 * Por exemplo, as data de abertura e de finalização devem ser gerenciada pela aplicação,
+	 * sem o valor READ_ONLY essas datas poderiam ser preenchidas e enviadas pelo front, na requisição.
+	 * */
+	@JsonProperty(access = Access.READ_ONLY)
 	@Column(name = "DH_ABERTURA")
 	private LocalDateTime dhAbertura;
-
+	
+	@JsonProperty(access = Access.READ_ONLY)
 	@Column(name = "DH_FINALIZACAO")
 	private LocalDateTime dhFinalizacao;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "EN_STATUS")
+	@JsonProperty(access = Access.READ_ONLY)
 	private StatusOrdemServico status;
 	
 	@ManyToOne

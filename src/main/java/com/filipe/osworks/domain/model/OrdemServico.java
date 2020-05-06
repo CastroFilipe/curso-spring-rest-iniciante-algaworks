@@ -12,11 +12,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.groups.ConvertGroup;
+import javax.validation.groups.Default;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.filipe.osworks.domain.validation.ValidationGroups;
 
 @Entity
 public class OrdemServico {
@@ -52,8 +56,24 @@ public class OrdemServico {
 	@JsonProperty(access = Access.READ_ONLY)
 	private StatusOrdemServico status;
 	
+	/*
+	 * A anotação @NotNull impedirá que Cliente == null no cadastro de ordens de serviço. 
+	 * Porém não é feita a validação do id do cliente. Ainda será possível passar um Cliente com id == null.
+	 * 
+	 * A anotação @Valid resolverá esse problema, permitindo a validação em cascata.
+	 * A validação em cascata fará a validação do id do cliente que, internamente ao objeto, 
+	 * está anotado com @NotNull. Porém outros campos, não necessários no cadastro de OS, além do id, 
+	 * também serão validados em cascata. 
+	 * 
+	 * Para especificar que apenas o ID do Cliente deve ser validado no cadastro de OS será utilizado o
+	 * @ConvertGroup. A anotação retira o grupo Default e utiliza o groupo ClienteId.class.
+	 * O id do cliente deverá ser anotado com @NotNull(groups = ValidationGroups.ClienteId.class).
+	 * Com isso, somente o ID do cliente será validado em cascata.
+	 * */
 	@ManyToOne
 	@JoinColumn(name = "ID_CLIENTE")
+	@Valid
+	@ConvertGroup(from = Default.class , to = ValidationGroups.ClienteId.class)
 	@NotNull
 	private Cliente cliente;
 

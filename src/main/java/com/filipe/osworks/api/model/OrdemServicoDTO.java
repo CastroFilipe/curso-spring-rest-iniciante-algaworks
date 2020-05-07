@@ -13,7 +13,7 @@ public class OrdemServicoDTO {
 	private OffsetDateTime dhAbertura;
 	private OffsetDateTime dhFinalizacao;
 	private StatusOrdemServico status;
-	private String nomeCliente;
+	private ClienteResumoDTO cliente;
 	
 	public Integer getId() {
 		return id;
@@ -62,13 +62,13 @@ public class OrdemServicoDTO {
 	public void setStatus(StatusOrdemServico status) {
 		this.status = status;
 	}
-	
-	public String getNomeCliente() {
-		return nomeCliente;
+
+	public ClienteResumoDTO getCliente() {
+		return cliente;
 	}
-	
-	public void setNomeCliente(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
+
+	public void setCliente(ClienteResumoDTO cliente) {
+		this.cliente = cliente;
 	}
 	
 }

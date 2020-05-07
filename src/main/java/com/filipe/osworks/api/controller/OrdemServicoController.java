@@ -2,6 +2,7 @@ package com.filipe.osworks.api.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -36,14 +37,14 @@ public class OrdemServicoController {
 	private ModelMapper modelMapper;
 	
 	@GetMapping
-	public List<OrdemServico> listar(){
-		return ordemServicoRepository.findAll();
+	public List<OrdemServicoDTO> listar(){
+		return toListDto(ordemServicoRepository.findAll());
 	}
 	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public OrdemServico criar(@Valid @RequestBody OrdemServico ordemServico) {
-		return ordemServicoGestaoService.criar(ordemServico);
+	public OrdemServicoDTO criar(@Valid @RequestBody OrdemServico ordemServico) {
+		return toDto(ordemServicoGestaoService.criar(ordemServico));
 	}
 	
 	@GetMapping("{ordemServicoId}")
@@ -52,10 +53,21 @@ public class OrdemServicoController {
 				
 		if(ordemServico.isPresent()) {
 			//faz o mapeamento da OrdemServico para DTO
-			OrdemServicoDTO ordemServicoDto = modelMapper.map(ordemServico.get(), OrdemServicoDTO.class);
+			OrdemServicoDTO ordemServicoDto = toDto(ordemServico.get());
 			return ResponseEntity.ok().body(ordemServicoDto);			
 		}
 		
 		return ResponseEntity.notFound().build();
+	}
+	
+	//Método para a conversão de Entidade para DTO
+	private OrdemServicoDTO toDto(OrdemServico ordemServico) {
+		return modelMapper.map(ordemServico, OrdemServicoDTO.class);
+	}
+	
+	private List<OrdemServicoDTO> toListDto(List<OrdemServico> ordens){
+		return ordens.stream()
+				.map(ordem -> toDto(ordem))
+				.collect(Collectors.toList());
 	}
 }

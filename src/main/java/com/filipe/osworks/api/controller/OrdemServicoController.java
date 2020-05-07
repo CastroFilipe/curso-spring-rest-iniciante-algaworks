@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.filipe.osworks.api.model.OrdemServicoDTO;
 import com.filipe.osworks.domain.model.OrdemServico;
 import com.filipe.osworks.domain.repository.OrdemServicoRepository;
 import com.filipe.osworks.domain.service.OrdemServicoGestaoService;
@@ -30,6 +32,9 @@ public class OrdemServicoController {
 	@Autowired
 	private OrdemServicoRepository ordemServicoRepository;
 	
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	@GetMapping
 	public List<OrdemServico> listar(){
 		return ordemServicoRepository.findAll();
@@ -42,11 +47,13 @@ public class OrdemServicoController {
 	}
 	
 	@GetMapping("{ordemServicoId}")
-	public ResponseEntity<OrdemServico> buscar(@PathVariable Integer ordemServicoId) {
+	public ResponseEntity<OrdemServicoDTO> buscar(@PathVariable Integer ordemServicoId) {
 		Optional<OrdemServico> ordemServico = ordemServicoRepository.findById(ordemServicoId);
 				
 		if(ordemServico.isPresent()) {
-			return ResponseEntity.ok().body(ordemServico.get());			
+			//faz o mapeamento da OrdemServico para DTO
+			OrdemServicoDTO ordemServicoDto = modelMapper.map(ordemServico.get(), OrdemServicoDTO.class);
+			return ResponseEntity.ok().body(ordemServicoDto);			
 		}
 		
 		return ResponseEntity.notFound().build();

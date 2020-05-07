@@ -1,6 +1,6 @@
 package com.filipe.osworks.api.exceptionhandler;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -17,7 +17,7 @@ public class MessageError {
 	
 	//informações de data e hora de ocorrência do erro
 	@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-	private LocalDateTime dataHora;
+	private OffsetDateTime dataHora;
 	
 	private String titulo;
 	
@@ -48,7 +48,7 @@ public class MessageError {
 		}	
 	}
 
-	public MessageError(Integer status, LocalDateTime dataHora, String titulo, List<Campo> campos) {
+	public MessageError(Integer status, OffsetDateTime dataHora, String titulo, List<Campo> campos) {
 		super();
 		this.status = status;
 		this.dataHora = dataHora;
@@ -64,11 +64,11 @@ public class MessageError {
 		this.status = status;
 	}
 
-	public LocalDateTime getDataHora() {
+	public OffsetDateTime getDataHora() {
 		return dataHora;
 	}
 
-	public void setDataHora(LocalDateTime dataHora) {
+	public void setDataHora(OffsetDateTime dataHora) {
 		this.dataHora = dataHora;
 	}
 

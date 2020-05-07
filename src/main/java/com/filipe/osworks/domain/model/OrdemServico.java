@@ -1,7 +1,7 @@
 package com.filipe.osworks.domain.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,11 +45,11 @@ public class OrdemServico {
 	 * */
 	@JsonProperty(access = Access.READ_ONLY)
 	@Column(name = "DH_ABERTURA")
-	private LocalDateTime dhAbertura;
+	private OffsetDateTime dhAbertura;
 	
 	@JsonProperty(access = Access.READ_ONLY)
 	@Column(name = "DH_FINALIZACAO")
-	private LocalDateTime dhFinalizacao;
+	private OffsetDateTime dhFinalizacao;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "EN_STATUS")
@@ -101,19 +101,19 @@ public class OrdemServico {
 		this.preco = preco;
 	}
 
-	public LocalDateTime getDhAbertura() {
+	public OffsetDateTime getDhAbertura() {
 		return dhAbertura;
 	}
 
-	public void setDhAbertura(LocalDateTime dhAbertura) {
+	public void setDhAbertura(OffsetDateTime dhAbertura) {
 		this.dhAbertura = dhAbertura;
 	}
 
-	public LocalDateTime getDhFinalizacao() {
+	public OffsetDateTime getDhFinalizacao() {
 		return dhFinalizacao;
 	}
 
-	public void setDhFinalizacao(LocalDateTime dhFinalizacao) {
+	public void setDhFinalizacao(OffsetDateTime dhFinalizacao) {
 		this.dhFinalizacao = dhFinalizacao;
 	}
 

@@ -1,6 +1,6 @@
 package com.filipe.osworks.api.exceptionhandler;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		MessageError mensagemDeErro = new MessageError(
 				status.value(), 
-				LocalDateTime.now(), 
+				OffsetDateTime.now(), 
 				ex.getMessage(), 
 				null);
 		
@@ -63,7 +63,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		MessageError mensagemDeErro = new MessageError(
 				status.value(),
-				LocalDateTime.now(), 
+				OffsetDateTime.now(), 
 				"Campo(s) preenchido(s) de forma incorreta",
 				campos);
 		

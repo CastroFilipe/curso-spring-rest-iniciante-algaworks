@@ -1,6 +1,6 @@
 package com.filipe.osworks.domain.service;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class OrdemServicoGestaoService {
 	
 	public OrdemServico criar(OrdemServico ordemServico) {
 		ordemServico.setStatus(StatusOrdemServico.ABERTA);
-		ordemServico.setDhAbertura(LocalDateTime.now());
+		ordemServico.setDhAbertura(OffsetDateTime.now());
 		
 		Cliente cliente = clienteCadastroService.buscarPorId(ordemServico.getCliente().getId());
 		ordemServico.setCliente(cliente);

@@ -14,7 +14,8 @@ import javax.persistence.ManyToOne;
 public class Comentario {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_comentario")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_COMENTARIO")
 	private Integer id;
 	
@@ -22,16 +23,20 @@ public class Comentario {
 	private String descricao;
 	
 	@Column(name = "DH_ENVIO")
-	private OffsetDateTime dataEnvio;
+	private OffsetDateTime dhEnvio;
 
 	@ManyToOne
 	@JoinColumn(name = "ID_ORDEMSERVICO")
 	private OrdemServico ordemServico;
 	
-	public Comentario(String descricao, OffsetDateTime dataEnvio) {
+	public Comentario() {
+		super();
+	}
+
+	public Comentario(String descricao, OffsetDateTime dhEnvio) {
 		super();
 		this.descricao = descricao;
-		this.dataEnvio = dataEnvio;
+		this.dhEnvio = dhEnvio;
 	}
 
 	public Integer getId() {
@@ -49,15 +54,15 @@ public class Comentario {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
-	public OffsetDateTime getDataEnvio() {
-		return dataEnvio;
-	}
-
-	public void setDataEnvio(OffsetDateTime dataEnvio) {
-		this.dataEnvio = dataEnvio;
-	}
 	
+	public OffsetDateTime getDhEnvio() {
+		return dhEnvio;
+	}
+
+	public void setDhEnvio(OffsetDateTime dhEnvio) {
+		this.dhEnvio = dhEnvio;
+	}
+
 	public OrdemServico getOrdemServico() {
 		return ordemServico;
 	}

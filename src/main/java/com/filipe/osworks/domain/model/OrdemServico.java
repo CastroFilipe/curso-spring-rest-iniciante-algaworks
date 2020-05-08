@@ -83,6 +83,15 @@ public class OrdemServico {
 	@OneToMany(mappedBy = "ordemServico")
 	private List<Comentario> comentarios = new ArrayList<>();
 
+	public OrdemServico() {
+		super();
+	}
+
+	public OrdemServico(Integer id) {
+		super();
+		this.id = id;
+	}
+
 	public Integer getId() {
 		return id;
 	}

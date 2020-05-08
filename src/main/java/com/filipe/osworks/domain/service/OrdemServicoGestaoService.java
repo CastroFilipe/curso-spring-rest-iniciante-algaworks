@@ -5,9 +5,12 @@ import java.time.OffsetDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.filipe.osworks.domain.exception.NegocioException;
 import com.filipe.osworks.domain.model.Cliente;
+import com.filipe.osworks.domain.model.Comentario;
 import com.filipe.osworks.domain.model.OrdemServico;
 import com.filipe.osworks.domain.model.StatusOrdemServico;
+import com.filipe.osworks.domain.repository.ComentarioRepository;
 import com.filipe.osworks.domain.repository.OrdemServicoRepository;
 
 @Service
@@ -19,6 +22,9 @@ public class OrdemServicoGestaoService {
 	@Autowired
 	private ClienteCadastroService clienteCadastroService;
 	
+	@Autowired
+	private ComentarioRepository comentarioRepository;
+	
 	public OrdemServico criar(OrdemServico ordemServico) {
 		ordemServico.setStatus(StatusOrdemServico.ABERTA);
 		ordemServico.setDhAbertura(OffsetDateTime.now());
@@ -27,5 +33,14 @@ public class OrdemServicoGestaoService {
 		ordemServico.setCliente(cliente);
 		
 		return ordemServicoRepository.save(ordemServico);
+	}
+	
+	public Comentario adicionarComentario(Integer idOrdemServico, String descricao) {
+		OrdemServico ordemServico = ordemServicoRepository.findById(idOrdemServico)
+				.orElseThrow(()-> new NegocioException("Ordem de serviço não encontrada"));
+		
+		Comentario comentario = new Comentario(descricao, OffsetDateTime.now());
+		comentario.setOrdemServico(ordemServico);
+		return comentarioRepository.save(comentario);
 	}
 }

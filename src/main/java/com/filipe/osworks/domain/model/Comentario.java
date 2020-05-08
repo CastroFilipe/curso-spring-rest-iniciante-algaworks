@@ -2,10 +2,12 @@ package com.filipe.osworks.domain.model;
 
 import java.time.OffsetDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -13,15 +15,25 @@ public class Comentario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "ID_COMENTARIO")
 	private Integer id;
 	
+	@Column(name = "TX_DESCRICAO")
 	private String descricao;
 	
+	@Column(name = "DH_ENVIO")
 	private OffsetDateTime dataEnvio;
 
 	@ManyToOne
+	@JoinColumn(name = "ID_ORDEMSERVICO")
 	private OrdemServico ordemServico;
 	
+	public Comentario(String descricao, OffsetDateTime dataEnvio) {
+		super();
+		this.descricao = descricao;
+		this.dataEnvio = dataEnvio;
+	}
+
 	public Integer getId() {
 		return id;
 	}

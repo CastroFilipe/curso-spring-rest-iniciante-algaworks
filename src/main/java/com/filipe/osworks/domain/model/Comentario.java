@@ -14,7 +14,8 @@ import javax.persistence.ManyToOne;
 public class Comentario {
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_comentario")
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_comentario")
+//	@SequenceGenerator(name = "sq_comentario", sequenceName = "seq_comentario", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_COMENTARIO")
 	private Integer id;

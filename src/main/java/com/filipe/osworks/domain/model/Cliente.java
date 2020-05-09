@@ -11,10 +11,16 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.filipe.osworks.domain.validation.ValidationGroups;
-
+/*
+ * Classe Cliente(Persistence model). A classe possui classes DTOs de representação(Representation Model)
+ * utilizadas no recebimento e envio de informações pela API.
+ * As validações nos atributos desta classe(classe Persistence Model) se tornam opcionais pois as 
+ * mesmas também estão presentes nas Classes DTOs(classes Representation Model) equivalentes.
+ * 
+ * */
 @Entity
 public class Cliente {
-	
+
 	@NotNull(groups = ValidationGroups.ClienteId.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

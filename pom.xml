@@ -56,11 +56,15 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<!--Controle de versão e migração de banco de dados(verificar aquivos de scripts no diretório padrão
+		 resources/db/migration). Os scripts são executados apenas uma vez e as informações de execução serão salvas
+		 em tabela, com nome padrão flyway_schema_history, gerada automaticamente na base de dados configurada.-->
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
+		<!-- Classe ModelMapper faz o mapeamento e conversão automática de entidades(Persistence model) 
+		para DTOs(Representation Model) e vice-versa. -->
 		<dependency>
 		    <groupId>org.modelmapper</groupId>
 		    <artifactId>modelmapper</artifactId>

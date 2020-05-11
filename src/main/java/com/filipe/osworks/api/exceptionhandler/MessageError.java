@@ -3,7 +3,6 @@ package com.filipe.osworks.api.exceptionhandler;
 import java.time.OffsetDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -16,7 +15,7 @@ public class MessageError {
 	private Integer status;
 	
 	//informações de data e hora de ocorrência do erro
-	@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+	//@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	private OffsetDateTime dataHora;
 	
 	private String titulo;
@@ -24,7 +23,7 @@ public class MessageError {
 	@JsonInclude(Include.NON_EMPTY)
 	private List<Campo> campos;
 	
-	//classe interna que representará cada campo inválido.
+	//classe interna que representa um campo preenchido de forma inválida.
 	public static class Campo {
 		private String atributo;
 		private String mensagem;

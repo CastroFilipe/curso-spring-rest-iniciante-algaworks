@@ -23,6 +23,7 @@ import javax.validation.groups.Default;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.filipe.osworks.domain.exception.NegocioException;
 import com.filipe.osworks.domain.validation.ValidationGroups;
 
 @Entity
@@ -181,4 +182,17 @@ public class OrdemServico {
 		return true;
 	}
 	
+	private Boolean podeFinalizar() {
+		return getStatus().equals(StatusOrdemServico.ABERTA);
+	}
+	
+	//Exemplo de método para dar responsabilidades a uma entidade.
+	public void finalizar() {
+		if(!podeFinalizar()) {
+			throw new NegocioException("Ordem de serviço não pode ser finalizada");
+		}
+		
+		setStatus(StatusOrdemServico.FINALIZADA);
+		setDhFinalizacao(OffsetDateTime.now());
+	}
 }
